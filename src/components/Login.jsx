@@ -26,6 +26,18 @@ export const Login = () => {
 
         Ingreso({
             variables: formData
+        }).then((result)=>{
+            //console.log(result);
+            if (mutationData) {
+                if (mutationData.Ingreso.token) {   
+                    toast.success('Ingreso exitoso')
+                    setToken(mutationData.Ingreso.token)
+                    navigate("/perfil")
+                } 
+            } 
+        }).catch((err)=>{
+            //console.log(err);
+            toast.error('' + err)
         })
 
 
@@ -47,8 +59,8 @@ export const Login = () => {
     useEffect(() => {
         if (mutationError ) {
             setToken(null)
-            navigate("/auth/login")
-            toast.error('Error ', mutationError)
+            //navigate("/auth/login")
+            //toast.error('Error ', mutationError)
         }
 
     }, [mutationError])

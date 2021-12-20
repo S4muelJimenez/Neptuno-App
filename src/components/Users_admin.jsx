@@ -17,6 +17,7 @@ const User_admin = () => {
     return (
         <>
             {<Navbar titulo='Usuarios' />}
+
             <div className='container m-3'>
                 <table className="table table-sm tabla_usuarios table-striped table-hover">
                     <thead>

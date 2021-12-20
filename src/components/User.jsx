@@ -6,6 +6,7 @@ import { useUser } from '../context/userContext'
 import { Loader } from './Loader';
 import { GET_PERFIL, EDITAR_PERFIL } from './graphql/perfil/querys';
 import useFormData from '../hooks/useFormData';
+import { toast } from "react-toastify";
 
 export const User = () => {
 
@@ -26,7 +27,7 @@ export const User = () => {
 
     const submitForm = (e) => {
         e.preventDefault();
-        console.log('fd', formData);
+        //console.log('fd', formData);
 
         editarPerfil({
             variables: {
@@ -34,15 +35,22 @@ export const User = () => {
                 apellidos: formData.apellidos,
                 correo: formData.correo
             }
+        }).then((result)=>{
+            //console.log(result);
+            toast("Perfil modificado con éxito, vuelva a iniciar sesión para visualizar los cambios")
+            /* setTimeout(() => {
+                window.location.reload()
+            }, 300); */
+        }).catch((err)=>{
+            //console.log(err);
+            toast.error('' + err)
         })
-
 
     }
 
-
-    useEffect(() => {
+    /* useEffect(() => {
         console.log('db', queryData);
-    }, [queryData])
+    }, [queryData]) */
 
     /*     useEffect(() => {
             console.log("Recibidos con éxito:", userData)

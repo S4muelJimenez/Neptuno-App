@@ -6,6 +6,8 @@ import { Navbar } from './Navbar';
 import { useMutation } from '@apollo/client';
 import useFormData from '../hooks/useFormData';
 import { useNavigate } from 'react-router';
+import { toast } from "react-toastify";
+import { useEffect } from 'react/cjs/react.development';
 
 export const ProyectoNuevo = () => {
 
@@ -31,9 +33,23 @@ export const ProyectoNuevo = () => {
                 //...formData 
             }
         
-        }) 
+        }) .then((result)=>{
+            //console.log(result);
+            toast("Proyecto creado con éxito")
+        }).catch((err)=>{
+            //console.log(err);
+            toast.error('Error creando el proyecto intente nuevamente' + err)
+        })
         navigate("/proyectos")
     }
+
+    useEffect(() => {
+        if(formData.nombre && formData.presupuesto && formData.fechaInicio){
+            document.getElementById('btnCrear').disabled= false
+        }else{
+            document.getElementById('btnCrear').disabled= true
+        }
+    }, [formData])
 
     return (
         <>
@@ -71,7 +87,7 @@ export const ProyectoNuevo = () => {
 
                             <div className="mb-3">
                                 <label htmlFor="presupuesto" className="form-label  npcolor">Presupuesto</label>
-                                <input type="number" className="form-control" name="presupuesto" aria-describedby="nameHelp" required />
+                                <input type="number" className="form-control" name="presupuesto" aria-describedby="nameHelp" required="true"/>
                                 {/* <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div> */}
                             </div>
                             <div className="mb-3">
@@ -87,7 +103,7 @@ export const ProyectoNuevo = () => {
                             </div>
 
                             <div className="d-grid gap-2 col-6 mx-auto pb-3">
-                                <button onClick={submitForm} className="btn btn-warning" type="button">Crear Proyecto</button>
+                                <button onClick={submitForm} className="btn btn-warning" type="submit" disabled id='btnCrear'>Crear Proyecto</button>
                             </div>
 
                         </form>

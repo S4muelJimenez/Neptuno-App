@@ -10,12 +10,16 @@ import { useEffect } from 'react/cjs/react.development';
 import ButtonLoading from './ButtonLoading';
 import useFormData from '../hooks/useFormData';
 import { EDITAR_USUARIO } from './graphql/usuarios/mutations';
+import { toast } from "react-toastify";
+import { useNavigate } from 'react-router';
 
 
 
 const Editar_usuario = () => {
 
     const { _id } = useParams();
+
+    const navigate = useNavigate();
 
     const { form, formData, updateFormData } = useFormData(null);
 
@@ -26,17 +30,17 @@ const Editar_usuario = () => {
     const [editarUsuario, { data: mutationData, error: mutationEror, loading: mutationLoading }] = useMutation(EDITAR_USUARIO);
 
 
-    useEffect(() => {
+    /* useEffect(() => {
         console.log("dt", querdyData);
     }, [querdyData])
 
     useEffect(() => {
         console.log('mutacion edicion', mutationData);
-    }, [mutationData])
+    }, [mutationData]) */
 
     const submitForm = (e) => {
         e.preventDefault();
-        console.log('fd', formData);
+        //console.log('fd', formData);
         editarUsuario({
             variables: {
                 _id,
@@ -48,6 +52,13 @@ const Editar_usuario = () => {
                 identificacion: formData.identificacion
 
             }
+        }).then((result)=>{
+            //console.log(result);
+            toast("Usuario editado correctamente")
+            navigate("/usuarios")
+        }).catch((err)=>{
+            //console.log(err);
+            toast.error('' + err)
         })
     }
 
@@ -56,6 +67,8 @@ const Editar_usuario = () => {
         <>
             <Navbar titulo={"Estás editando a: "} />
             <div className="container pt-1 cont_propio">
+
+            <Link to={"/usuarios"} className="btn btn-warning  isI  mb-3" >regresar</Link>
 
                 <div className="col">
                     <form
@@ -86,7 +99,7 @@ const Editar_usuario = () => {
                         <div className="mb-3">
                             <label htmlFor="rol" className="form-label  npcolor" >Rol</label>
                             <select defaultValue={querdyData && querdyData.leerUsuario.rol} className="form-select" aria-label="Default select example" required='true' name="rol">
-                                <option >Seleccione</option>
+                                
                                 <option value="ESTUDIANTE">Estudiante</option>
                                 <option value="LIDER">Lider</option>
                                 <option value="ADMINISTRADOR">Administrador</option>
@@ -118,7 +131,7 @@ const Editar_usuario = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className="mb-3">
+                        {/* <div className="mb-3">
                             <label htmlFor="exalinkedin2" className="form-label  npcolor">Contraseña</label>
                             <div className="container p-0">
                                 <div className="row">
@@ -126,15 +139,15 @@ const Editar_usuario = () => {
                                         <input
                                             required
                                             type='password'
-                                            /* name="contrasena" */
+                                            name="contrasena"
                                             className='form-control'
                                             defaultValue={null}
                                         ></input>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div className="mb-3">
+                        </div> */}
+                        {/* <div className="mb-3">
                             <label htmlFor="instagram2" className="form-label  npcolor">Repita la contraseña:</label>
                             <div className="container p-0">
                                 <div className="row">
@@ -142,14 +155,14 @@ const Editar_usuario = () => {
                                         <input
                                             required
                                             type='password'
-                                            /* name="contra_repetida" */
+                                            name="contra_repetida"
                                             className='form-control'
                                             defaultValue={null}
                                         ></input>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div> */}
                         <div className="mb-3">
                             <label htmlFor="rol" className="form-label  npcolor" >Estado</label>
                             <select defaultValue={querdyData && querdyData.leerUsuario.estado} className="form-select" aria-label="Default select example" required='true' name="estado">
