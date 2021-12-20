@@ -110,7 +110,7 @@ export const MenuLateralAdmin = () => {
                             <li><a className="link_name">Proyectos</a></li>
                         </ul>
                     </li>
-                    <li>
+                   {/*  <li>
                         <a href="/">
                             <i className='bx bx-brain'></i>
                             <span className="link_name">Gestión de Avances</span>
@@ -118,9 +118,9 @@ export const MenuLateralAdmin = () => {
                         <ul className="sub-menu blank">
                             <li><a className="link_name" href="/">Avances</a></li>
                         </ul>
-                    </li>
+                    </li> */}
                     {/* <button >Holi</button> */}
-                    <li>
+                   {/*  <li>
                         <div className="icon-links">
                             <a href="index.js">
                                 <i className='bx bx-collection' ></i>
@@ -134,7 +134,7 @@ export const MenuLateralAdmin = () => {
                             <li><a href="/">PRUEBA 2</a></li>
                             <li><a href="/">PRUEBA 3</a></li>
                         </ul>
-                    </li>
+                    </li> */}
                     <li className='cursor_here'>
                         <a onClick={handleUsuarios}>
                             <i className='bx bx-group'></i>

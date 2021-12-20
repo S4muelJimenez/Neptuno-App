@@ -37,11 +37,12 @@ const PrivateLayout = () => {
         }
     }, [mutationData, loadingAuth])
 
-    useEffect(() => {
+
+/*     useEffect(() => {
         //useEffect meramente informativo
         console.log("token de contexto Actual ", authToken);
         console.log("token de localStorage Actual ", localStorage.getItem('token'));
-    },[authToken])
+    },[authToken]) */
 
     if(mutationLoading || loadingAuth){return <div>Cargando...</div>}
 

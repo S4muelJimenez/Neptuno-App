@@ -9,7 +9,7 @@ const useFormData = (initial) =>{
         infoFormulario.forEach((value,key)=>{
             objetoNuevo[key] = value
         })
-        console.log(objetoNuevo);
+        //console.log(objetoNuevo);
         return objetoNuevo
     }
     const updateFormData = () =>{

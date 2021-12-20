@@ -22,27 +22,35 @@ export const Login = () => {
 
     const submitForm = (e) => {
         e.preventDefault();
-        console.log("Formulario login ", formData);
+        //console.log("Formulario login ", formData);
+
         Ingreso({
             variables: formData
         })
+
+
     }
 
     useEffect(() => {
-        console.log('mutacion de ingreso', mutationData);
+        //console.log('mutacion de ingreso', mutationData);  
         if (mutationData) {
-            if (mutationData.Ingreso.token) {
+            if (mutationData.Ingreso.token) {   
                 toast.success('Ingreso exitoso')
                 setToken(mutationData.Ingreso.token)
                 navigate("/perfil")
-            }
-        }
+            } 
+        } 
     }, [mutationData])
 
+
+
     useEffect(() => {
-        if (mutationError) {
-            toast.error('Error al crear el usuario', mutationError)
+        if (mutationError ) {
+            setToken(null)
+            navigate("/auth/login")
+            toast.error('Error ', mutationError)
         }
+
     }, [mutationError])
 
 
