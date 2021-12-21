@@ -4,7 +4,6 @@ import { Outlet, useNavigate } from 'react-router'
 import { ToastContainer } from 'react-toastify'
 import { REFRESCAR_TOKEN } from '../components/graphql/auth/mutations';
 import { MenuLateral } from '../components/MenuLateral';
-import { Navbar } from '../components/Navbar';
 import { useAuth } from '../context/authContext';
 import { useUser } from '../context/userContext';
 
@@ -25,7 +24,7 @@ const PrivateLayout = () => {
     }, [])
 
     useEffect(() => {
-        console.log('data refrescarToken ', mutationData);
+        //console.log('data refrescarToken ', mutationData);
         if (mutationData) {
             if (mutationData.refrescarToken.token) {
                 setToken(mutationData.refrescarToken.token)

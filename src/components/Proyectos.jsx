@@ -7,6 +7,7 @@ import { useQuery, useMutation } from '@apollo/client';
 import { GET_INCRIPCIONES, GET_PROYECTOS } from './graphql/proyectos/querys';
 import { CREAR_INSCRIPCION } from './graphql/proyectos/mutations';
 import { useUser } from '../context/userContext';
+import { toast } from 'react-toastify';
 
 const Proyectos = () => {
 
@@ -26,10 +27,17 @@ const Proyectos = () => {
     const generarInscripcion = () =>{
         crearInscripcion({
             variables: { proyecto: idProyecto, estudiante: userData._id }
-        }) 
-        setTimeout(() => {
-            window.location.reload()
-        }, 300);
+        }).then((result)=>{
+            //console.log(result);
+            toast("Incripción exitosa")
+            setTimeout(() => {
+                window.location.reload()
+                
+            }, 1000)  
+        }).catch((err)=>{
+            //console.log(err);
+            toast.error('Error con la inscripción' + err)
+        })
         //console.log("Inscripcion correcto: ", mutationDataI)
     }
   
@@ -62,9 +70,9 @@ const Proyectos = () => {
                     cuenta += 1
                 }
             })
-            console.log("inscripciones proyecto"+ id + " #" + cuenta);
+            /* console.log("inscripciones proyecto"+ id + " #" + cuenta);
             console.log("inscripciones pendientes"+ id + " #" + cuentaPendientes);
-            console.log("inscripciones aceptadas"+ id + " #" + cuentaAceptadas);
+            console.log("inscripciones aceptadas"+ id + " #" + cuentaAceptadas); */
         }
         
         /* console.log("prueba: " + cuenta + id) */

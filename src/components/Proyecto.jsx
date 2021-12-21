@@ -8,6 +8,7 @@ import { CREAR_AVANCE, CREAR_OBJETIVO, EDITAR_INSCRIPCION, EDITAR_PROYECTO, EDIT
 import { Navbar } from './Navbar';
 import useFormData from '../hooks/useFormData';
 import { useUser } from '../context/userContext';
+import { toast } from 'react-toastify';
 
 
 export const Proyecto = () => {
@@ -45,17 +46,25 @@ export const Proyecto = () => {
             console.log("es 0, no haga nada");
         } else {
             if (queryData.leerProyecto.estado == "ACTIVO") {
-                console.log("inactivar proyecto: " + queryData.leerProyecto._id)
+                //console.log("inactivar proyecto: " + queryData.leerProyecto._id)
                 editarProyectoEstado({
                     variables: { _id: queryData.leerProyecto._id, estado: "INACTIVO" }
+                }).then((result)=>{
+                    toast("Proyecto Inactivado") 
+                }).catch((err)=>{
+                    toast.error('' + err)
                 })
-                console.log("inactivar proyecto: ", mutationData)
+                //console.log("inactivar proyecto: ", mutationData)
             } else {
-                console.log("Activar proyecto: " + queryData.leerProyecto._id)
+               // console.log("Activar proyecto: " + queryData.leerProyecto._id)
                 editarProyectoEstado({
                     variables: { _id: queryData.leerProyecto._id, estado: "ACTIVO" }
+                }).then((result)=>{
+                    toast("Proyecto Activado") 
+                }).catch((err)=>{
+                    toast.error('' + err)
                 })
-                console.log("Activar proyecto: " + mutationData)
+               // console.log("Activar proyecto: " + mutationData)
             }
 
         }
@@ -67,11 +76,15 @@ export const Proyecto = () => {
             console.log("es 0, no haga nada");
         } else {
             const nuevaFase = document.getElementById("fase-proy").value
-            console.log(document.getElementById("fase-proy").value)
+            //console.log(document.getElementById("fase-proy").value)
             editarProyectoFase({
                 variables: { _id: queryData.leerProyecto._id, fase: nuevaFase }
+            }).then((result)=>{
+                toast("Cambio de Fase Exitoso") 
+            }).catch((err)=>{
+                toast.error('no se pudo realizar el cambio de fase' + err)
             })
-            console.log('mutacion fase', mutationDataF);
+            //console.log('mutacion fase', mutationDataF);
         }
     }
 
@@ -80,32 +93,47 @@ export const Proyecto = () => {
     const submitForm = (e) => {
         e.preventDefault();
         //console.log('fd', formData);
+        
         crearObjetivo({
             variables: {
                 proyecto: queryData.leerProyecto._id,
                 ...formData
             }
 
+        }).then((result)=>{
+            toast("Se agrego el objetivo correctamente") 
+        }).catch((err)=>{
+            toast.error('' + err)
         })
         document.getElementById("form-obj").reset()
     }
 
+
+
     const submitFormA = (e) => {
         e.preventDefault();
-        crearAvance({
+        
+        if(!document.getElementById("descripcionAvance").value==""){
+            crearAvance({
             variables: {
                 proyecto: queryData.leerProyecto._id,
                 estudiante: userData._id,
                 descripcion: document.getElementById("descripcionAvance").value
-            }
+                }
+            }).then((result)=>{
+                toast("Avance Creado con éxito") 
+            }).catch((err)=>{
+                toast.error('' + err)
+            })
+            setTimeout(() => {
+                window.location.reload()
+            }, 1000);
             
-
-        })
-        setTimeout(() => {
-            window.location.reload()
-        }, 300);
+            document.getElementById("form-avc").reset()
+        }else{
+            toast.error("Debe ingresar una descripción valida")
+        }
         
-        document.getElementById("form-avc").reset()
     }
 
     const [idInscripcion, setIdIncripcion]=useState()
@@ -116,7 +144,11 @@ export const Proyecto = () => {
 
         editarInscripcion({
             variables: { _id: idInscripcion, estado: estadoInscripcion }
-        }) 
+        }) .then((result)=>{
+            toast("Estado de inscripción actualizado con éxito") 
+        }).catch((err)=>{
+            toast.error('' + err)
+        })
         //console.log("Cambio de estado correcto: ", mutationDataI)
     }
 
@@ -126,7 +158,11 @@ export const Proyecto = () => {
 
         eliminarInscripcionP({
             variables: { proyecto: _id, id: idInscripcion  }
-        }) 
+        }) .then((result)=>{
+            toast("Inscripción eliminada con éxito") 
+        }).catch((err)=>{
+            toast.error('' + err)
+        })
         
         setTimeout(() => {
             window.location.reload()
@@ -151,9 +187,11 @@ export const Proyecto = () => {
         
         editarProyecto({
             variables: {_id: _id, nombre: document.getElementById("nombreProyectoNuevo").value, presupuesto: nPresupuesto}
+        }).then((result)=>{
+            toast("Proyecto Modificado con éxito") 
+        }).catch((err)=>{
+            toast.error('' + err)
         })
-        /* document.getElementById("nombreProyectoNuevo").value= "" 
-        document.getElementById("presupuestoNuevo").value = "" */
 
     }
 
@@ -324,12 +362,12 @@ export const Proyecto = () => {
                                                 </div>
                                                 <div className="mb-3">
                                                     <label htmlFor="descripcion" className="form-label  npcolor">Descripción:*</label>
-                                                    <textarea className="form-control" id="exampleFormControlTextarea1" rows="2" name='descripcion'></textarea>
+                                                    <textarea className="form-control" id="descObjetivo" rows="2" name='descripcion'></textarea>
                                                 </div>
                                             </form>
                                         </div>
                                         <div className="card-footer d-flex justify-content-end">
-                                            <button onClick={submitForm} className="btn btn-warning isI"> Agregar Objetivo</button>
+                                            <button onClick={submitForm} className="btn btn-warning isI"  id='btnObjetivo' type='submit'> Agregar Objetivo</button>
                                         </div>
                                     </div>
 
@@ -372,7 +410,7 @@ export const Proyecto = () => {
                                             </form>
                                         </div>
                                         <div className="card-footer d-flex justify-content-end">
-                                            <button onClick={submitFormA} className="btn btn-warning isI"> Agregar Avance</button>
+                                            <button onClick={submitFormA} className="btn btn-warning isI" id='btnAvance'> Agregar Avance</button>
                                         </div>
                                     </div>
 
@@ -475,9 +513,7 @@ export const Proyecto = () => {
                                 
                             <div className="container " >
 
-                                <div className="d-grid gap-2 col-3 ml-auto ms-3 ps-3">
-                                    <Link to="/proyectos" className="btn btn-warning isI d-flex justify-content-center mb-3" style={{marginTop: "70px"}}>regresar</Link>
-                                </div>
+                                
                                 <div className="profile-card-2 border border-3 border-warning ">
                                     <div className="profile-content ms-3 me-3">
                                         <div className="container pb-3">

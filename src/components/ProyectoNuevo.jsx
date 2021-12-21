@@ -35,7 +35,15 @@ export const ProyectoNuevo = () => {
         
         }) .then((result)=>{
             //console.log(result);
-            toast("Proyecto creado con éxito")
+            if(userData.rol==="LIDER"){
+               toast("Proyecto creado con éxito")
+                setTimeout(() => {
+                    window.location.reload()
+                }, 500); 
+            }else{
+                toast.error("Ud no puede crear Proyectos, debe tener el rol de Lider")
+            }
+            
         }).catch((err)=>{
             //console.log(err);
             toast.error('Error creando el proyecto intente nuevamente' + err)

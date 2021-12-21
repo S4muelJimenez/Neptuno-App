@@ -8,6 +8,7 @@ import useFormData from '../hooks/useFormData';
 import { GET_AVANCE } from './graphql/proyectos/querys';
 import { useUser } from '../context/userContext';
 import { CREAR_OBSERVACION } from './graphql/proyectos/mutations';
+import { toast } from 'react-toastify';
 
 
 
@@ -29,11 +30,21 @@ const AgregarObservaciones = () => {
         /* console.log("avance: " + _id);
         console.log("Observacion: " + document.getElementById("observacion").value);
         console.log("lider: "+ userData._id); */
-        crearObservacion({
-            variables: { avance: _id, observacion: document.getElementById("observacion").value, lider:  userData._id}
-        })
-        //console.log(mutationDataObs)
-        document.getElementById("observacion").value = ""
+
+        if(!document.getElementById("observacion").value == ""){
+            crearObservacion({
+                variables: { avance: _id, observacion: document.getElementById("observacion").value, lider:  userData._id}
+            }).then((result)=>{
+                toast("Observaciòn agregada correctamente") 
+            }).catch((err)=>{
+                toast.error('' + err)
+            })
+            //console.log(mutationDataObs)
+            document.getElementById("observacion").value = ""
+        }else {
+            toast.error("Debe ingresar Una Observación valida")
+        }
+        
     }
 
     useEffect(() => {
