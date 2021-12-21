@@ -8,6 +8,7 @@ import useFormData from '../hooks/useFormData';
 import { useNavigate } from 'react-router';
 import { toast } from "react-toastify";
 import { useEffect } from 'react/cjs/react.development';
+import '../css/proyectos.scss'
 
 export const ProyectoNuevo = () => {
 
@@ -63,7 +64,7 @@ export const ProyectoNuevo = () => {
         <>
             <Navbar titulo={"Nuevo Proyecto"} />
             
-            <div className="container " >
+            <div className="container nproyecto" >
 
                 <div className="d-grid gap-2 col-3 ml-auto ms-3 ps-3">
                     <Link to="/proyectos" className="btn btn-warning isI d-flex justify-content-center mb-3" style={{marginTop: "70px"}}>regresar</Link>

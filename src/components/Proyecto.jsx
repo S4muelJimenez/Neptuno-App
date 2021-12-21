@@ -9,6 +9,7 @@ import { Navbar } from './Navbar';
 import useFormData from '../hooks/useFormData';
 import { useUser } from '../context/userContext';
 import { toast } from 'react-toastify';
+import '../css/proyectos.scss'
 
 
 export const Proyecto = () => {
@@ -171,13 +172,26 @@ export const Proyecto = () => {
     }
 
     const [idAvance, setIdAvance]=useState()
+    const [descAvance, setDescAvance]=useState()
+
+    useEffect(() => {
+       document.getElementById("modAvance").value=descAvance
+    }, [descAvance])
     
     const modificarAvance = () => {
         //console.log(idAvance);
-
-        modificarAvanceF({
-            variables: { _id: idAvance, descripcion: document.getElementById("modAvance").value }
-        })
+        if(!document.getElementById("modAvance").value==""){
+            modificarAvanceF({
+                variables: { _id: idAvance, descripcion: document.getElementById("modAvance").value }
+            }).then((result)=>{
+                toast("Avance modificado correctamente") 
+            }).catch((err)=>{
+                toast.error('' + err)
+            })
+        }else{
+            toast.error("Debes agregar algo en la descripción")
+        }
+        
     }
 
     const modificarProyecto = () => {
@@ -224,7 +238,7 @@ export const Proyecto = () => {
                     <Loader /> 
                     : 
                     <>
-                        <div className="container" style={{ marginTop: "100px" }}>
+                        <div className="container nproyecto" style={{ marginTop: "100px" }}>
 
                             <Link to={"/proyectos"} className="btn btn-warning  isI  mb-3" >regresar</Link>
 
@@ -232,7 +246,7 @@ export const Proyecto = () => {
 
 
                             <div className="row">
-                                {<div className="col-6">
+                                {<div className="col-sm-6 col-12 mb-3">
                                     <div className="card">
                                         <div className="card-body">
                                             <h4 className="card-title text-center">{queryData.leerProyecto.nombre}</h4>
@@ -244,10 +258,10 @@ export const Proyecto = () => {
                                                 <button className='btn btn-warning  isI btn-sm  ms-3' onClick={() => setCuentaEstado(cuentaEstado + 1)}> Cambiar Estado</button>
                                             </p>
                                             <div className="row">
-                                                <div className="col-4">
+                                                <div className="col-sm-4 col-12">
                                                     <p className="card-text"> Fase: </p>
                                                 </div>
-                                                <div className="col-4">
+                                                <div className="col-sm-4 col-12 mb-2">
                                                     <select style={{ maxWidth: "180px" }} className="form-select" aria-label="select-fase" required="true" name="fase" id='fase-proy'>
                                                         <option> Seleccione </option>
                                                         <option value="INICIADO">Iniciado</option>
@@ -256,7 +270,7 @@ export const Proyecto = () => {
                                                         <option value="POR_DEFINIR">Por Definir</option>
                                                     </select>
                                                 </div>
-                                                <div className="col-4">
+                                                <div className="col-sm-4 col-12">
                                                     <button className='btn btn-warning  sI btn-sm ms-3' onClick={() => setCuentaFase(cuentaFase + 1)}>Cambiar fase </button>
                                                 </div>
                                             </div>
@@ -270,7 +284,7 @@ export const Proyecto = () => {
                                         </div>
                                     </div>
                                 </div>}
-                                <div className="col-6">
+                                <div className="col-sm-6 col-12 mb-3">
                                     <div className="card">
                                         <div className="container">
                                             <h4 className="card-title mt-3 text-center">Incripciones</h4>
@@ -387,7 +401,7 @@ export const Proyecto = () => {
                                         <buton 
                                             className="btn btn-warning isI btn-sm me-3" 
                                             data-bs-toggle="modal" data-bs-target="#modalModAvance" 
-                                            onClick={()=>setIdAvance(a._id)} >
+                                            onClick={()=>setIdAvance(a._id) & setDescAvance(a.descripcion)} >
                                                 Modificar
                                         </buton>
                                         <Link to={`/proyecto/observacion/${a._id}`} className="btn btn-warning isI btn-sm">Agregar Observación</Link>

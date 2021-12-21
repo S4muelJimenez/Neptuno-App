@@ -1,11 +1,27 @@
 .tabla_usuarios{
     background-color: rgba(230, 230, 250, 0.842);
+    margin-top: 90px;
     position: inherit;
     z-index: 100;
-    margin-left: 65px;
+    //margin-left: 85px;
     border-radius: 1.5rem;
-    margin-top: 90px;
+     margin-left: auto; 
+     margin-right: auto; 
 }
+
+@media only screen and (max-width: 768px) {
+    .tabla_usuarios{
+        
+         margin-left: 70px; 
+         
+    }
+  }
+
+
+/* .table {
+    margin: auto;
+    width: 50% !important; 
+ } */
 
 td{
     font-size: 15px;

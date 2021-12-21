@@ -8,6 +8,7 @@ import { GET_INCRIPCIONES, GET_PROYECTOS } from './graphql/proyectos/querys';
 import { CREAR_INSCRIPCION } from './graphql/proyectos/mutations';
 import { useUser } from '../context/userContext';
 import { toast } from 'react-toastify';
+import '../css/proyectos.scss'
 
 const Proyectos = () => {
 
@@ -94,7 +95,7 @@ const Proyectos = () => {
             loading ?
             <Loader />
             :
-            <div className='container'>
+            <div className='container proyectos'>
                 <div className="row" style={{marginTop: "100px"}}>
                     <div className="col">
                         <h1 >Lista de Proyectos</h1>

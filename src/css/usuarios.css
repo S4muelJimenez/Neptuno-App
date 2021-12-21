@@ -1,6 +1,18 @@
 /* * {
     border: red 1px solid;
 } */
+
+@media only screen and (max-width: 930px) {
+ 
+  .respon{
+    margin-left: 50px;
+    /* width: 100%; */
+  }
+  .colres{
+    width: 100%;
+  }
+}
+
 .npcolor {
   color: #f2b705;
 }

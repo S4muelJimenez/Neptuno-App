@@ -66,11 +66,12 @@ const Editar_usuario = () => {
     return (
         <>
             <Navbar titulo={"Estás editando a: "} />
-            <div className="container pt-1 cont_propio">
+            
+            <div className="container pt-3 cont_propio">
 
             <Link to={"/usuarios"} className="btn btn-warning  isI  mb-3" >regresar</Link>
 
-                <div className="col">
+                <div className="row">
                     <form
                         onSubmit={submitForm}
                         onChange={updateFormData}

@@ -21,10 +21,6 @@ export const User = () => {
     });
     const [editarPerfil, { data: mutacionData, loading: mutacionLoading, error: mutacionError }] = useMutation(EDITAR_PERFIL)
 
-
-
-
-
     const submitForm = (e) => {
         e.preventDefault();
         //console.log('fd', formData);
@@ -38,9 +34,6 @@ export const User = () => {
         }).then((result)=>{
             //console.log(result);
             toast("Perfil modificado con éxito, vuelva a iniciar sesión para visualizar los cambios")
-            /* setTimeout(() => {
-                window.location.reload()
-            }, 300); */
         }).catch((err)=>{
             //console.log(err);
             toast.error('' + err)
@@ -74,8 +67,8 @@ export const User = () => {
             {/* :D */}
 
             <div className="container pt-5 mt-5" >
-                <div className="row">
-                    <div className="col-sm-5">
+                <div className="row respon">
+                    <div className="col-sm-5 colres">
 
                         <div className="profile-card text-center border border-3 border-warning">
                             <img src="https://cdn.pixabay.com/photo/2017/06/26/13/03/webdesigner-2443766_960_720.jpg" className="img img-responsive" />
@@ -114,7 +107,7 @@ export const User = () => {
 
 
 
-                    <div className="col-sm-7">
+                    <div className="col-sm-7 colres">
 
                         <div className="profile-card-2 border border-3 border-warning ">
 
