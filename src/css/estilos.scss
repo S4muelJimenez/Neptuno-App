@@ -29,6 +29,19 @@
   margin-top: 5vh;
 }
 
+@media only screen and (max-width: 768px) {
+  .contenedor-login {
+    max-width: 90%;
+    height: auto;
+    background-color: white;
+    //padding: 10px;
+    border: 1px solid $color3;
+    text-align: center;
+    border-radius: 25px;
+    margin-top: 5vh;
+  }
+}
+
 .logotipo-naranja {
   @include colorLogotipo($color3);
 }
